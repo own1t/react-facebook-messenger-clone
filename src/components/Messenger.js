@@ -53,7 +53,7 @@ function Messenger() {
       <div className="messenger">
         <div className="messenger__header">
           <img src="https://facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=100&h=100" />
-          <h2>Hello, {username}</h2>
+          <h2>Hello, {username ? username : "Unknown User"}</h2>
         </div>
         <form className="messenger__form">
           <FormControl className="messenger__formControl">

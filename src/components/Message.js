@@ -1,10 +1,19 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useRef, useEffect } from "react";
+
 import { Card, CardContent, Typography } from "@material-ui/core";
 
 import "./Message.css";
 
 const Message = forwardRef(({ username, message }, ref) => {
   const isUser = username === message.username;
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(scrollToBottom, [message]);
 
   return (
     <>
@@ -18,6 +27,7 @@ const Message = forwardRef(({ username, message }, ref) => {
           </CardContent>
         </Card>
       </div>
+      <div ref={messagesEndRef} />
     </>
   );
 });

@@ -4,10 +4,18 @@ import { Button, FormControl, InputLabel, Input } from "@material-ui/core";
 
 import Message from "./Message";
 
+import db from "../firebase";
+
 function Messenger() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    db.collection("messages").onSnapshot((snapshot) => {
+      setMessages(snapshot.docs.map((doc) => doc.data()));
+    });
+  }, []);
 
   useEffect(() => {
     setUsername(prompt("Please enter your username"));
@@ -16,7 +24,7 @@ function Messenger() {
   const handleMessage = (e) => {
     e.preventDefault();
 
-    setMessages([...messages, { username: username, text: input }]);
+    setMessages([...messages, { username: username, message: input }]);
     setInput("");
   };
 
